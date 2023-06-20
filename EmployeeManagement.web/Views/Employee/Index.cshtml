@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Employee>
+
+<div class="row">
+    <div class="col">
+        <div class="float-start"><h1>All Employee</h1></div>
+        <div class="float-end"><a asp-action="Upsert" class="btn btn-success">Create New</a></div>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Profile</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                    <td>@employee.Address</td>
+                    <td>
+                        @if (string.IsNullOrEmpty(employee.ImageUrl))
+                        {
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" style="width:70px; height:50px;" />
+                        }
+                        else{
+                            <img alt="@employee.Name" src="/Employee/@employee.ImageUrl" style="width:70px; height:50px;" />
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Upsert" asp-route-id="@employee.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">No Records</td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

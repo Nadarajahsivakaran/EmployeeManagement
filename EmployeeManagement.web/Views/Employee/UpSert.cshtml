@@ -1,0 +1,51 @@
+﻿@model Employee
+
+<h1>@(Model.Id == 0 ? "Create" : "Update") Employee</h1>
+
+<div class="row">
+    <div class="col-6">
+        <form method="post" enctype='multipart/form-data'>
+            <input asp-for="Id" hidden />
+           
+            <input asp-for="ImageUrl" hidden />
+            <div class="form-group mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter Name...">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Age"></label>
+                <input asp-for="Age" class="form-control" placeholder="Enter Age...">
+                <span class="text-danger" asp-validation-for="Age"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" placeholder="Enter Address...">
+                <span class="text-danger" asp-validation-for="Address"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl"></label>
+                <input type="file" asp-for="ImageUrl" class="form-control" name="imageFile">
+                <span class="text-danger" asp-validation-for="ImageUrl"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Create" : "Update")</button>
+        </form>
+
+    </div>
+    <div class="col-6">
+        @if (string.IsNullOrEmpty(@Model.ImageUrl))
+        {
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" style="width:500px; height:400px;" />
+        }else{
+        <img alt="Name" src="/Employee/@Model.ImageUrl" style="width:500px; height:400px;" />
+        }
+    </div>
+</div>
+
+
+@section scripts{
+    <Partial name="_ValidationScriptsPartial" />
+}
